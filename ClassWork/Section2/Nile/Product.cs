@@ -12,16 +12,72 @@ namespace Nile
     /// </remarks>
     public class Product 
     {
+        // value set the moment the instance is created
+        public readonly Product None = new Product();
+
         /// <summary>Gets or sets the name.</summary>
-       public string Name;
+        /// <value>Never returns null.</value>
+       public string Name
+        {
+            // string get_Name ()
+            get 
+            {
+                return _name ?? "";
+            }
+            // void set_Name(string value)
+            set 
+            {
+                // value is keyword in setter method
+                _name = value?.Trim();
+            }
+        }
+
+        
 
         /// <summary>Gets or sets the description.</summary>
-        public string Description;
+        public string Description
+        {
+            get { return _description ?? ""; }
+            set { _description = value?.Trim(); }
+
+        }
 
         /// <summary>Gets or sets the price.</summary>
-        public decimal Price;
+        public decimal Price { get; set; } = 0;
+       
 
-        /// <summary>Determines if discontinued..</summary>
-        public bool IsDiscontinued;
+        /// <summary>Determines if discontinued..</summary>                
+        public bool IsDiscontinued { get; set; }
+
+
+
+        public const decimal DiscontinuedDiscountRate = 0.10M;
+
+        /// <summary>Gets the discounted price, if applicable.</summary>        
+        public decimal DiscountedPrice
+        {
+            get 
+            {
+                // if(this.IsDiscontinued)
+                if (IsDiscontinued)
+                    return Price * DiscontinuedDiscountRate;
+
+                return Price;
+            }
+
+        }
+
+        public int ICanOnlySetIt { get; private set; }
+        public int ICanOnlySetIt2 { get; }
+
+        public void Foo( string name )
+        {
+            name = "Hello";
+        }
+
+        // fields are always camalCase - start with underscore
+        private string _name;
+        private string _description;        
+       private readonly double _someValueICannotChange = 10;
     }
 }
