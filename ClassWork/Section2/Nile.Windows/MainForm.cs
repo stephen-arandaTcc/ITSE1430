@@ -9,6 +9,12 @@ namespace Nile.Windows
         public MainForm()
         {
             InitializeComponent();
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
