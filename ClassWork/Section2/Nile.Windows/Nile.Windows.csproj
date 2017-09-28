@@ -59,6 +59,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProductDetailForm.resx">
       <DependentUpon>ProductDetailForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,7 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nile\Nile.csproj">
-      <Project>{58b162c8-88e2-43ee-a554-e2009db720a4}</Project>
+      <Project>{93bd7a37-01a9-498d-8479-67bef715ea20}</Project>
       <Name>Nile</Name>
     </ProjectReference>
   </ItemGroup>

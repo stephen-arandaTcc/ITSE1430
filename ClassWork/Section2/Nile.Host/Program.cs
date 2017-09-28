@@ -1,16 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ * Your Name
+ * ITSE 1430
+ */
+using System;
+
+//namespace Nile
+//{
+//    //Nile.Why
+//    namespace Why
+//    {
+//    }
+//}
 
 namespace Nile.Host 
 {
     class Program 
     {
-        static void Main(string [] args)
+        static void Main ( string[] args )
         {
-            bool quit = false;           
+            bool quit = false;
             do
             {
                 char choice = GetInput();
@@ -20,23 +28,22 @@ namespace Nile.Host
                     case 'A': AddProduct(); break;
 
                     case 'l':
-                    case 'L': ListProduct(); break;
+                    case 'L': ListProducts(); break;
 
                     case 'q':
                     case 'Q': quit = true; break;
                 };
             } while (!quit);
-
         }
 
         private static void AddProduct()
-        {
+        {            
             Console.Write("Enter product name: ");
             productName = Console.ReadLine().Trim();
 
-            // Ensure not empty
+            //Ensure not empty
 
-            Console.Write("Enter price ( > 0): ");
+            Console.Write("Enter price (> 0): ");
             productPrice = ReadDecimal();
 
             Console.Write("Enter optional description: ");
@@ -46,53 +53,52 @@ namespace Nile.Host
             productDiscontinued = ReadYesNo();
         }
 
-        private static void ListProduct()
+        private static void ListProducts()
         {
-            // Name - $ price - [Discontinued]
-            // Description
+            //Name $price [Discontinued]
+            //Description
+            //Option 1
+            //string msg = String.Format("{0}\t\t\t${1}\t\t{2}", productName, productPrice
+            //, productDiscontinued ? "[Discontinued]" : "");
 
-            // option 1
-            // string msg = String.Format("{0}\t\t\t${1}\t\t{2}", productName, productPrice
-            //   , productDiscontinued ? "[Discontinued]" : "" );
+            //Option 2
+            //Console.WriteLine("{0}\t\t\t${1}\t\t{2}", productName, productPrice
+            //                 , productDiscontinued ? "[Discontinued]" : "");
 
-            // option2
-            // Console.WriteLine("{0}\t\t\t${1}\t\t{2}", productName, productPrice , productDiscontinued ? "[Discontinued]" : "" );
-
-            // option 3
-            string msg = $"{productName}\t\t\t${productPrice}\t\t{(productDiscontinued ? "[Discontinued]"  :"")} ";         
+            //Option 3
+            string msg = $"{productName}\t\t\t${productPrice}\t\t{(productDiscontinued ? "[Discontinued]" : "")}";
+                        
             Console.WriteLine(msg);
             Console.WriteLine(productDescription);            
-        }
+        }        
 
-        static char GetInput()
+        static char GetInput ()
         {
             while (true)
             {
                 Console.WriteLine();
                 Console.WriteLine("Main Menu");
-                Console.WriteLine("".PadLeft(10,'-'));
-                Console.WriteLine("A)add Product");
+                Console.WriteLine("".PadLeft(10, '-'));
+                Console.WriteLine("A)dd Product");
                 Console.WriteLine("L)ist Products");
                 Console.WriteLine("Q)uit");
 
-                // type inferencing - saves us time from typing the obvious during defining variable. Only inside local variables
-                // in functions
                 var input = Console.ReadLine().Trim();
 
-                // option 1 = string literal
-                // if(input !="")
+                //Option 1 = string literal
+                //if (input != "")
 
-                // option 2 - string field
-                // if (input != String.Empty)
+                //Option 2 - string field
+                //if (input != String.Empty)
 
-                // option 3 - length              
+                //Option 3 - length
                 if (input != null && input.Length != 0)
                 {
-                    // string comparison
+                    //String comparison
                     if (String.Compare(input, "A", true) == 0)
                         return 'A';
 
-                    // char comparison
+                    //Char comparison
                     char letter = Char.ToUpper(input[0]);
                     if (letter == 'A')
                         return 'A';
@@ -100,136 +106,123 @@ namespace Nile.Host
                         return 'L';
                     else if (letter == 'Q')
                         return 'Q';
-                }           
+                };
 
-                // Error
+                //Error
                 Console.WriteLine("Please choose a valid option");
             };
-
         }
 
+        // A single line comment
         static void Main2( string[] args )
         {
             int hours = 5;
             hours = 10;
 
+            //+ - * / %
+            //hours = (4 + 5) * 7.25 / 4;            
+            //hours = Math.Min(hours, 56);
+
             string name = "John";
 
-            // concat
-            name = name + " williams";
+            //Concat
+            name = name + " Williams";
 
-            // copy
+            //Copy
             name = "Hello";
 
             bool areEqual = name == "Hello";
             bool areNotEqual = name != "Hello";
 
-            // verbatim string - no escape sequences
+            //Verbatim string - no escape sequences
             string path = @"C:\Temp\test.txt";
+                        
+            //String formatting - John worked 10 hours
 
-            // option 1
-            string names = "John" + " william" + " Murphy" + " Charles" + " Henry";
+            //Option 1
+            string format1 = name + " worked " + hours.ToString() + " hours";
 
-            // option 2
-            StringBuilder builder = new StringBuilder();
-            builder.Append("John");
-            builder.Append(" william");            
-            string names2 = builder.ToString();
-
-            // option 3
-            string names3 = String.Concat("John", " william", " Murphy", " Charles", " Henry");
-
-            // string formatting - John worked 10 hours
-            string format1 = name + " worked" + hours.ToString() + " hours";
-
+            //Option 2
             string format2 = String.Format("{0} worked for {1} hours", name, hours);
-            
-            // end of last week examples for formatting strings
 
-            // new section
-            // option 3 - string interpulation mode - any expression allowed
+            //Option 3
             string format3 = $"{name} worked for {hours} hours";
 
-            // value type
+            //Value type
             int value1 = 10;
-            Program program = new Program();
+            var program = new Program();
 
             var areEqual1 = value1 == 10;
             var areEqual2 = program == program;
             var areEqual3 = program == new Program();
-
         }
 
-        /// <summary> Read a boolean from Console</summary>
-        /// <returns>The decimal value.</returns>
+        /// <summary>Reads a boolean from Console.</summary>
+        /// <returns>The boolean value.</returns>
         static bool ReadYesNo()
         {
             do
             {
                 string input = Console.ReadLine();
 
-
-               if (!String.IsNullOrEmpty(input))
+                if (!String.IsNullOrEmpty(input))
                 {
                     switch (Char.ToUpper(input[0]))
                     {
-
                         case 'Y': return true;
                         case 'N': return false;
                     };
-                        
                 };
 
                 Console.WriteLine("Enter either Y or N");
             } while (true);
         }
 
-
-        /// <summary> Reads a decimal from Console</summary>
+        /// <summary>Reads a decimal from Console.</summary>
         /// <returns>The decimal value.</returns>
-        static decimal ReadDecimal()
+        static decimal ReadDecimal ()
         {
             do
             {
-                string input = Console.ReadLine();
+                var input = Console.ReadLine();
 
-
-               // decimal result;
-                if (Decimal.TryParse(input, out decimal result))
+                //decimal result;
+                if (Decimal.TryParse(input, out var result))
                     return result;
 
                 Console.WriteLine("Enter a valid decimal");
             } while (true);
         }
 
-        static string ReadString(string errorMessage, bool allowEmpty)
+        static string ReadString ( string errorMessage, bool allowEmpty )
         {
-           // if (errorMessage == null)
-              //  errorMessage = "Enter a valid string";
-             // else 
-             //   errorMessage = errorMessage.Trim();
-              // coalescing operator ??
+            //if (errorMessage == null)
+            //errorMessage = "Enter a valid string";
+            //else
+            //  errorMessage = errorMessage.Trim();
+
+            //null coalesce
             errorMessage = errorMessage ?? "Enter a valid string";
 
-            // null conditional
+            //null conditional
             errorMessage = errorMessage?.Trim();
+
             do
             {
                 var input = Console.ReadLine();
                 if (String.IsNullOrEmpty(input) && allowEmpty)
                     return "";
                 else if (!String.IsNullOrEmpty(input))
-                    return input;              
+                    return input;
 
                 Console.WriteLine(errorMessage);
             } while (true);
         }
 
-        // Product
+        //Product
         static string productName;
         static decimal productPrice;
         static string productDescription;
         static bool productDiscontinued;
-        
     }
 }
