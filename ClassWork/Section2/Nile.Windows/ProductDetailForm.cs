@@ -34,7 +34,6 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
-
             if (Product != null)
             {
                 _txtName.Text = Product.Name;
@@ -62,65 +61,57 @@ namespace Nile.Windows
 
         private void OnSave( object sender, EventArgs e )
         {
-            if( !ValidateChildren())
+            if (!ValidateChildren())
             {
                 return;
             };
-            var product = new Product();
-            product.Name = _txtName.Text;
-            product.Description = _txtDescription.Text;
 
-            product.Price = GetPrice(_txtPrice);
-            product.IsDiscontinued = _chkDiscontinued.Checked;
+            //var product = new Product();
+            //product.Id = Product?.Id ?? 0;
+            //product.Name = _txtName.Text;
+            //product.Description = _txtDescription.Text;
+            //product.Price = GetPrice(_txtPrice);
+            //product.IsDiscontinued = _chkDiscontinued.Checked;
+
+            // Object initializer syntax
+            var product = new Product() {
+                Id = Product?.Id ?? 0,
+                Name = _txtName.Text,
+                Description = _txtDescription.Text,
+                Price = GetPrice(_txtPrice),
+                IsDiscontinued = _chkDiscontinued.Checked,
+            };
 
             //Add validation
-            var error = product.Validate();
-            if (!String.IsNullOrEmpty(error))
+            //var error = product.Validate();
+            //if (!String.IsNullOrEmpty(error))
+            //{
+            //    //Show the error
+            //    ShowError(error, "Validation Error");
+            //    return;
+            //};
+            if(!ObjectValidator.TryValidate(product, out var errors))
             {
                 //Show the error
-                ShowError(error, "Validation Error");
+                ShowError(errors, "Validation erro");
                 return;
-            };
+            }
 
             Product = product;
             this.DialogResult = DialogResult.OK;
             Close();
         }
 
-        private decimal GetPrice (TextBox control )
+        private decimal GetPrice ( TextBox control )
         {
-            if (Decimal.TryParse(_txtPrice.Text, out decimal price))
+            if (Decimal.TryParse(control.Text, out decimal price))
                 return price;
 
-            //TODO: Validate price            
+            //Validate price            
             return -1;
         }
 
         private void ProductDetailForm_FormClosing( object sender, FormClosingEventArgs e )
-        {
-            //Please no
-            //var form = (Form)sender;
-
-            //Please yes
-            var form = sender as Form;
-
-            //casting for value types
-            if (sender is int)
-            {
-                var intValue2 = (int)sender;
-            };
-
-            //Pattern matching
-            if (sender is int intValue)
-            {
-
-            };
-
-            if (MessageBox.Show(this, "Are you sure?", "Closing", MessageBoxButtons.YesNo) == DialogResult.No)
-                e.Cancel = true;
-        }
-
-        private void ProductDetailForm_FormClosed( object sender, FormClosedEventArgs e )
         {
 
         }
