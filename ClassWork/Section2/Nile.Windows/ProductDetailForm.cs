@@ -73,7 +73,7 @@ namespace Nile.Windows
             //product.Price = GetPrice(_txtPrice);
             //product.IsDiscontinued = _chkDiscontinued.Checked;
 
-            // Object initializer syntax
+            //Object initializer syntax
             var product = new Product() {
                 Id = Product?.Id ?? 0,
                 Name = _txtName.Text,
@@ -82,20 +82,18 @@ namespace Nile.Windows
                 IsDiscontinued = _chkDiscontinued.Checked,
             };
 
+            //System.ComponentModel.DataAnnotations.IValidatableObject vo = product;
+
             //Add validation
             //var error = product.Validate();
             //if (!String.IsNullOrEmpty(error))
-            //{
-            //    //Show the error
-            //    ShowError(error, "Validation Error");
-            //    return;
-            //};
-            if(!ObjectValidator.TryValidate(product, out var errors))
+            //Using IValidatableObject
+            if (!ObjectValidator.TryValidate(product, out var errors))                
             {
                 //Show the error
-                ShowError(errors, "Validation erro");
+                ShowError("Not valid", "Validation Error");
                 return;
-            }
+            };
 
             Product = product;
             this.DialogResult = DialogResult.OK;

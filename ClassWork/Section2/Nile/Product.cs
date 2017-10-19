@@ -87,26 +87,29 @@ namespace Nile
 
         private int[] _sizes = new int[4];
 
-     
         //public abstract string Validate2();
 
+        //IEnumerable<ValidationResult> IValidatableObject.Validate( ValidationContext validationContext )
+        //{
+
+        //}
         /// <summary>Validates the object.</summary>
-        /// <returns>The error message or null.</returns>
+        /// <returns>The error message or null.</returns>      
         public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
-           // var errors = new List<ValidationResult>();
+            //var errors = new List<ValidationResult>();
 
             //Name cannot be empty
             if (String.IsNullOrEmpty(Name))
-               yield return new ValidationResult("Name cannot be empty.", new[] { nameof(Name) });
-            // errors.Add(new ValidationResult( "Name cannot be empty.",new[] { nameof(Name) }));
+                yield return new ValidationResult("Name cannot be empty.", new[] { nameof(Name) });
+            //errors.Add(new ValidationResult("Name cannot be empty.", new[] { nameof(Name) }));
 
             //Price >= 0
             if (Price < 0)
                 yield return new ValidationResult("Price must be >= 0.", new[] { nameof(Price) });
-                //errors.Add(new ValidationResult( "Price must be >= 0.", new[] { nameof(Price) }));
+            //errors.Add(new ValidationResult("Price must be >= 0.", new[] { nameof(Price) }));
 
-           // return errors;
+            //return errors;
         }
 
         //public int ICanOnlySetIt { get; private set; }
