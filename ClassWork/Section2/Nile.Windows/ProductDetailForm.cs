@@ -109,10 +109,7 @@ namespace Nile.Windows
             return -1;
         }
 
-        private void ProductDetailForm_FormClosing( object sender, FormClosingEventArgs e )
-        {
-
-        }
+        
 
         private void OnValidatingPrice( object sender, CancelEventArgs e )
         {
