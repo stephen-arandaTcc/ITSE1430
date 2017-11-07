@@ -1,13 +1,13 @@
-﻿using System;
+﻿/*
+ * ITSE 1430
+ */
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nile.Stores
 {
-    /// <summary>Base class for product database.</summary>
+    /// <summary>Provides an implementation of <see cref="IProductDatabase"/> using a memory collection.</summary>
     public class MemoryProductDatabase : ProductDatabase
     {        
         /// <summary>Adds a product.</summary>
@@ -22,7 +22,10 @@ namespace Nile.Stores
                 newProduct.Id = _nextId++;
             else if (newProduct.Id >= _nextId)
                 _nextId = newProduct.Id + 1;
-            
+
+            //Temporary
+            //if (_nextId % 2 == 0)
+            //    throw new InvalidOperationException("Id invalid");
 
             return CopyProduct(newProduct);
         }
@@ -30,40 +33,24 @@ namespace Nile.Stores
         /// <summary>Get a specific product.</summary>
         /// <returns>The product, if it exists.</returns>
         protected override Product GetCore ( int id )
-        {
-            
+        {            
             var product = FindProduct(id);
 
             return (product != null) ? CopyProduct(product) : throw new Exception("Product not in memory.");
-          
         }
 
         /// <summary>Gets all products.</summary>
         /// <returns>The products.</returns>
         protected override IEnumerable<Product> GetAllCore ()
         {
-            foreach (var product in _products)
-                yield return CopyProduct(product);
-
-            //How many products?
-            //var count = 0;
-            //foreach (var product in _products)
-            //{
-            //    if (product != null)
-            //        ++count;
-            //};
-
-            //var items = new Product[count];
-            //var index = 0;
+            return from item in _products
+                   select CopyProduct(item);
 
             //foreach (var product in _products)
-            //{
-            //    if (product != null)
-            //        //product = new Product();
-            //        items[index++] = CopyProduct(product);
-            //};
+            //    yield return product;
 
-            //return items;
+            //foreach (var product in _products)
+            //    yield return CopyProduct(product);            
         }
 
         /// <summary>Removes the product.</summary>
@@ -73,12 +60,6 @@ namespace Nile.Stores
             var product = FindProduct(id);
             if (product != null)
                 _products.Remove(product);
-
-            //if (_list[index].Name == product.Name)
-            //{
-            //    _list.RemoveAt(index);
-            //    break;
-            //};        
         }
 
         /// <summary>Updates a product.</summary>
@@ -86,16 +67,18 @@ namespace Nile.Stores
         /// <returns>The updated product.</returns>
         protected override Product UpdateCore ( Product existing, Product product )
         {
-            //Replace 
-             existing = FindProduct(product.Id);
+            //Find and remove existing product
+            existing = FindProduct(product.Id);
             _products.Remove(existing);
             
+            //Add a copy of the new product
             var newProduct = CopyProduct(product);
             _products.Add(newProduct);
 
             return CopyProduct(newProduct);
         }
         
+        //Copies one product to another
         private Product CopyProduct ( Product product )
         {
             if (product == null)
@@ -114,18 +97,28 @@ namespace Nile.Stores
         //Find a product by ID
         private Product FindProduct ( int id )
         {
-            foreach (var product in _products)
-            {
-                if (product.Id == id)
-                    return product;
-            };
+            // LINQ syntax
+            return (from product in _products
+                   where product.Id == id
+                   select product).FirstOrDefault();
 
-            return null;
+            // Lambda
+            return _products.Where( p  =>  p.Id == id)
+                            .Select( p  =>   p )
+                            .FirstOrDefault();
+            
+            //foreach (var product in _products)
+            //{
+            //    if (product.Id == id)
+            //        return product;
+            //};
+
+            //return null;
         }
 
-        //private Product[] _products = new Product[100];
+     
+
         private List<Product> _products = new List<Product>();
         private int _nextId = 1;
-        //private List<int> _ints;
     }
 }

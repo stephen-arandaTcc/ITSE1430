@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Forms;
+using Nile.Stores;
 
 namespace Nile.Windows
 {
@@ -17,6 +18,9 @@ namespace Nile.Windows
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
+
+            _database = new Nile.Stores.FileProductDatabase("products.csv");
+            ProductDatabaseExtensions.WithSeedData(_database);
 
             _gridProducts.AutoGenerateColumns = false;
 
@@ -156,7 +160,7 @@ namespace Nile.Windows
             about.ShowDialog(this);         
         }
 
-        private IProductDatabase _database = new Nile.Stores.SeedMemoryProductDatabase();
+        private IProductDatabase _database;
 
         private void OnEditRow( object sender, DataGridViewCellEventArgs e )
         {

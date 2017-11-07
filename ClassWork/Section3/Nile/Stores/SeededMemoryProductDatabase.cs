@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Nile.Stores
 {
     /// <summary>Base class for product database.</summary>
-    public class SeedMemoryProductDatabase : MemoryProductDatabase
+    public static class ProductDatabaseExtensions 
     {
-        public SeedMemoryProductDatabase ()
+        public static void WithSeedData (IProductDatabase database)
         {
             #region Other approaches
             //Long way
@@ -37,10 +37,10 @@ namespace Nile.Stores
 
             //Collection initializer syntax with array
             //_products.AddRange(new [] {            
-            AddCore(new Product() { Id = 1, Name = "Galaxy S7", Price = 650 });
-            AddCore(new Product() { Id = 2, Name = "Galaxy Note 7", Price = 150, IsDiscontinued = true });
-            AddCore(new Product() { Id = 3, Name = "Windows Phone", Price = 100 });
-            AddCore(new Product() { Id = 4, Name = "iPhone X", Price = 1900, IsDiscontinued = true });
+            database.Add(new Product() {  Name = "Galaxy S7", Price = 650 });
+            database.Add(new Product() {  Name = "Galaxy Note 7", Price = 150, IsDiscontinued = true });
+            database.Add(new Product() {  Name = "Windows Phone", Price = 100 });
+            database.Add(new Product() {  Name = "iPhone X", Price = 1900, IsDiscontinued = true });
             //});            
 
             //_nextId = _products.Count + 1;
