@@ -36,9 +36,11 @@ namespace Nile
         //    get => 0M;
         //}
 
-        public decimal CalulatedProperty => 0M;
+        //Getter only property with expression body
+       // public decimal CalulatedProperty => 0M;
 
-        public decimal CalculatedProperty2 => 0M;
+        //Field, oops, with expression body
+       // public decimal CalculatedProperty2 => 0M;
 
 
 
