@@ -96,9 +96,14 @@ namespace MovieLib.Web.Controllers
             return View(model);
         }
 
+        /// <update>
+        /// Sorted movie files.
+        /// Stephen Aranda.
+        /// </update>
         public ActionResult List()
         {
             var movies = from m in _database.GetAll()
+                         orderby m.Title
                          select m;
             
             return View(movies.ToViewModel());

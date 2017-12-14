@@ -46,7 +46,11 @@ namespace MovieLib.Data
 
         /// <summary>Gets all the movies.</summary>
         /// <returns>The list of movies.</returns>
-        public IEnumerable<Movie> Getall ()
+        /// <update> 
+        /// corrected getall() to getAll().
+        /// Stephen Aranda
+        /// </update>
+        public IEnumerable<Movie> GetAll ()
         {
             return GetAllCore();
         }
@@ -58,13 +62,17 @@ namespace MovieLib.Data
         /// If the movie does not exist then nothing happens.
         /// </remarks>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="id"/> is less than or equal to zero.</exception>
+        /// <update> 
+        /// Changed the existing != to == so the movie can be removed.
+        /// Stephen Aranda.
+        /// </update>
         public bool Remove ( int id )
         {
             if (id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "ID must be > 0.");
 
             var existing = GetCore(id);
-            if (existing != null)
+            if (existing == null)
                 return false;
 
             RemoveCore(id);

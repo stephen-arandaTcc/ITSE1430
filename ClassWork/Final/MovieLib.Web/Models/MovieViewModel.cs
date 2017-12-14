@@ -14,6 +14,11 @@ namespace MovieLib.Web.Models
     {
         public int Id { get; set; }
 
+        /// <update>
+        /// Validated the title length
+        /// Stephen Aranda
+        /// </update>
+        [StringLength(100,MinimumLength,2, ErrorMessage="Title must be between 2 and 100 characters.")]
         [Required(AllowEmptyStrings = false)]
         public string Title { get; set; }
 
@@ -27,6 +32,11 @@ namespace MovieLib.Web.Models
 
         public Rating Rating { get; set; }
 
+        /// <update>
+        /// Validated the release year to be between 1900 and 2100
+        /// Stephen Aranda
+        /// </update>
+        [Range(1900,2100, ErrorMessage = "Year must be between 1900 and 2100")]
         [Display(Name = "Release Year")]
         public int ReleaseYear { get; set; }
 

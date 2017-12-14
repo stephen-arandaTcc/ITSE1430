@@ -24,6 +24,10 @@ namespace MovieLib.Web.Models
         /// <summary>Converts a <see cref="Movie"/> to a view model.</summary>
         /// <param name="source">The source.</param>
         /// <returns>The view model.</returns>
+        /// <update>
+        /// Added the rating.
+        /// Stephen Aranda
+        /// </update>
         public static MovieViewModel ToViewModel ( this Movie source )
         {
             return new MovieViewModel()
@@ -34,13 +38,18 @@ namespace MovieLib.Web.Models
                 Description = source.Description,
                 Length = source.Length,
                 IsOwned = source.IsOwned,
-                ReleaseYear = source.ReleaseYear
+                ReleaseYear = source.ReleaseYear,
+                Rating = source.Rating
             };
         }
 
         /// <summary>Converts a view model to a <see cref="Movie"/>.</summary>
         /// <param name="source">The source.</param>
         /// <returns>The movie.</returns>
+        /// <update>
+        /// Added the rating.
+        /// Stephen Aranda.
+        /// </update>
         public static Movie ToMovie ( this MovieViewModel source )
         {
             return new Movie()
@@ -51,7 +60,9 @@ namespace MovieLib.Web.Models
                 Description = source.Description,
                 Length = source.Length,
                 IsOwned = source.IsOwned,
-                ReleaseYear = source.ReleaseYear
+                ReleaseYear = source.ReleaseYear,
+                Rating = source.Rating
+
             };
         }
     }
